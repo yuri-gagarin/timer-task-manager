@@ -1,9 +1,10 @@
 import React, {Component} from "react";
+import {renderTimeString} from "../helpers/TimeHelper";
 
 
 class Timer extends Component {
     render() {
-        const elapsedTime = renderElapsedTime(this.props.elapsed);
+        const elapsedTime = renderTimeString(this.props.elapsed);
         return (
             <div className="ui centered card">
                 <div className="content">
@@ -16,7 +17,7 @@ class Timer extends Component {
                     <div className="center aligned description">
                         <h2>{elapsedTime}</h2>
                     </div>
-                    <div classNam="extra content">
+                    <div className="extra content">
                         <span className="right floated edit icon">
                             <i className="edit icon"/>
                         </span>

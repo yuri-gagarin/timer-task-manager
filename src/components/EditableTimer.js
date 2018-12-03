@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import Timer from "./Timer";
+import TimerForm from "./TimerForm";
 
 class EditableTimer extends Component {
     render() {
