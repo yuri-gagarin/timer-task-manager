@@ -1,0 +1,25 @@
+const uuidv4 = require("uuid/v4");
+import {convertedTime} from "./ConverterHelper";
+
+
+
+const newTimer = function(attrs={}) {
+    const timer = {
+        title: attrs.title || "Timer",
+        project: attrs.project || "Project",
+        id: uuidv4(),
+        elapsed: 0
+    };
+
+    return timer;
+};
+
+const renderTimeString = function(elapsed, started) {
+    let totalElapsed = elapsed;
+    if (started) {
+        totalElapsed += Date.now() - totalElapsed;
+    }
+    return convertedTime(totalElapsed);
+}
+
+export {newTimer, renderTimeString}
