@@ -8,9 +8,12 @@ import {timers} from "../helpers/Timers";
 class TimersDashboard extends Component {
     constructor(props) {
         super(props);
-        this.createTimer = this.createTimer.bind(this);
+        //timer CRUD
+        this.handleTimerForm = this.handleTimerForm.bind(this);
+        this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
+
         this.state = {
-            timers:[]
+            timers:[],
         }
     }
 
@@ -19,17 +22,38 @@ class TimersDashboard extends Component {
         });
     }
     
-    createTimer(timer) {
+    handleTimerForm(timer) {
         
-        let task = 
-        newTimer({
-            title: timer.title,
-            project: timer.project
+        if (timer.id) {
+            console.log(timer);
+            const updatedTimers = this.state.timers.map(t => {
+                if (t.id === timer.id) {
+                    t.title = timer.title;
+                    t.project = timer.project
+                    return t;
+                }
+                else {
+                    return t;
+                }
+            });
+            this.setState({timers: updatedTimers});
+        }
+        else {
+            let task = 
+            newTimer({
+                title: timer.title,
+                project: timer.project
+            });
+            this.setState({timers: this.state.timers.concat(task)});
+        }     
+    }
+    handleDeleteTimer(timerID) {
+        console.log(timerID);
+        const updatedTimers = this.state.timers.filter(t => {
+            return t.id != timerID;
         });
-        this.setState({timers: this.state.timers.concat(task)});
-        
-        
-    }   
+        this.setState({timers: updatedTimers});
+    } 
     
     render() {
         return(
@@ -37,11 +61,12 @@ class TimersDashboard extends Component {
                 <div className="column">
                     <EditableTimerList
                         timers = {this.state.timers}
+                        editTimer = {this.handleTimerForm}
+                        deleteTimer = {this.handleDeleteTimer}
                      />
 
                     <ToggleableTimerForm
-                        isOpen = {true}
-                        createTimer = {this.createTimer}
+                        createTimer = {this.handleTimerForm}
                      />
                 </div>
             </div>

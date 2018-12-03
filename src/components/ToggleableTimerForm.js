@@ -18,7 +18,6 @@ class ToggleableTimerForm extends Component {
     }
 
     formCancel() {
-        console.log("Cancel Form");
         this.setState({isOpen: false});
     }
 
