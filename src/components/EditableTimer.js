@@ -4,11 +4,25 @@ import TimerForm from "./TimerForm";
 
 class EditableTimer extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
+
+        this.submitForm = this.submitForm.bind(this);
+        this.openForm = this.openForm.bind(this);
+        this.deleteTimer = this.deleteTimer.bind(this);
+
         this.state = {
             editFormOpen: false
         }
+    }
+    submitForm({timer}) {
+        console.log(timer);
+    }
+    openForm() {
+        console.log(this);
+    }
+    deleteTimer(timerID) {
+        console.log(timerID);
     }
 
     render() {
@@ -18,6 +32,8 @@ class EditableTimer extends Component {
                 id={this.props.id}
                 title={this.props.title}
                 project={this.props.project}
+                submitForm={this.submitForm}
+
             />
            );
         }
@@ -27,9 +43,11 @@ class EditableTimer extends Component {
                 <Timer 
                     id={this.props.id}
                     title={this.props.title}
-                    project={this.props.title}
+                    project={this.props.project}
                     elapsed={this.props.elapsed}
                     runningSince={this.props.runningSince}
+                    openForm={this.openForm}
+                    deleteTimer={this.deleteTimer}
                 />
             );
         }

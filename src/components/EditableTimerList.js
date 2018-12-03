@@ -4,8 +4,10 @@ import EditableTimer from "./EditableTimer";
 class EditableTimerList extends Component {
 
     render() {
+        console.log(this.props.timers);
 
         const timers = this.props.timers.map(timer => {
+            console.log(timer.project);
             return(
             <EditableTimer
                 key = {timer.id}

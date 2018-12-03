@@ -18,10 +18,10 @@ class Timer extends Component {
                         <h2>{elapsedTime}</h2>
                     </div>
                     <div className="extra content">
-                        <span className="right floated edit icon">
+                        <span className="right floated edit icon" onClick={this.props.openForm}>
                             <i className="edit icon"/>
                         </span>
-                        <span className="right floated trash icon">
+                        <span className="right floated trash icon" onClick={this.props.deleteTimer}>
                             <i className="trash icon"/>
                         </span>
                     </div>

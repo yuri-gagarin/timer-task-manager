@@ -2,11 +2,12 @@ import React, {Component} from "react";
 import TimerForm from "./TimerForm";
 
 class ToggleableTimerForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.formOpen = this.formOpen.bind(this);
         this.formCancel = this.formCancel.bind(this);
-        
+        this.formSubmit = this.formSubmit.bind(this);
+
         this.state = {
             isOpen: false
         }
@@ -21,11 +22,16 @@ class ToggleableTimerForm extends Component {
         this.setState({isOpen: false});
     }
 
+    formSubmit(timer) {
+        this.props.createTimer(timer);
+        this.setState({isOpen: false});
+    }
     render() {
         if (this.state.isOpen) {
             return (
                 <TimerForm
                     formCancel = {this.formCancel}
+                    formSubmit = {this.formSubmit}
                  />
             );
         } 
