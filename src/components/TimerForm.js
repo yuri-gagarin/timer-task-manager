@@ -18,7 +18,7 @@ class TimerForm extends Component {
                         </div>
                         <div className="ui two botttom attached buttons">
                             <button className="ui basic blue button">{submitBtnText}</button>
-                            <button className="ui basic red button">Cancel</button>
+                            <button className="ui basic red button" onClick={this.props.formCancel}>Cancel</button>
                         </div>
                     </div>
                 </div>
