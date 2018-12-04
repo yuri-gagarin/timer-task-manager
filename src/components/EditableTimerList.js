@@ -16,6 +16,9 @@ class EditableTimerList extends Component {
                 runningSince = {timer.runningSince}
                 onFormSubmit = {this.props.editTimer}
                 deleteTimer = {this.props.deleteTimer}
+                startTimer = {this.props.startTimer}
+                stopTimer = {this.props.stopTimer}
+                resetTimer = {this.props.resetTimer}
              />
             );
         })

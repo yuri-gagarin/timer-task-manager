@@ -5,12 +5,18 @@ import ToggleableTimerForm from "./ToggleableTimerForm";
 import {newTimer} from "../helpers/TimeHelper";
 import {timers} from "../helpers/Timers";
 
+
 class TimersDashboard extends Component {
     constructor(props) {
         super(props);
         //timer CRUD
         this.handleTimerForm = this.handleTimerForm.bind(this);
         this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
+
+        //timer controls
+        this.handleStartTimer = this.handleStartTimer.bind(this);
+        this.handleStopTimer = this.handleStopTimer.bind(this);
+        this.handleResetTimer = this.handleResetTimer.bind(this);
 
         this.state = {
             timers:[],
@@ -22,6 +28,7 @@ class TimersDashboard extends Component {
         });
     }
     
+    //timer edit controlls
     handleTimerForm(timer) {
         
         if (timer.id) {
@@ -42,27 +49,79 @@ class TimersDashboard extends Component {
             let task = 
             newTimer({
                 title: timer.title,
-                project: timer.project
+                project: timer.project,
+                elapsed: null,
+                runningSince: Date.now()
             });
-            this.setState({timers: this.state.timers.concat(task)});
+            this.setState({timers: this.state.timers.concat(task)}, () => console.log(this.state.timers));
         }     
     }
     handleDeleteTimer(timerID) {
-        console.log(timerID);
         const updatedTimers = this.state.timers.filter(t => {
-            return t.id != timerID;
+            return t.id !== timerID;
+        });
+        this.setState({timers: updatedTimers});
+    }
+
+    //timer controlls
+    handleStartTimer(timerID) {
+        const updatedTimers = this.state.timers.map(timer => {
+            if (timerID === timer.id) {
+                console.log(timer)
+                if (timer.elapsed != null) {
+                    timer.runningSince = Date.now() - timer.elapsed;
+                    timer.elapsed = 0;   
+                }
+                else {
+                    timer.runningSince = Date.now();
+                }
+                return timer;
+            }
+            else {
+                return timer;
+            }
         });
         this.setState({timers: updatedTimers});
     } 
+    handleResetTimer(timerID) {
+        const updatedTimers = this.state.timers.map(timer => {
+            if (timerID === timer.id) {
+                timer.elapsed = null;
+                timer.runningSince = null;
+                return timer;
+            }
+            else {
+                return timer;
+            }
+        });
+        this.setState({timers: updatedTimers});
+    }
+    handleStopTimer(timerID) {
+        const updatedTimers = this.state.timers.map(timer => {
+            if (timer.id === timerID) {
+                timer.elapsed = Date.now() - timer.runningSince;
+                timer.runningSince = null;
+                return timer;
+            }
+            else {
+                return timer;
+            }
+        });
+
+        this.setState({timers: updatedTimers});
+    }
     
     render() {
         return(
-            <div className="ui three column centered grid">
+            <div className="ui four column doubling stackable grid container">
                 <div className="column">
                     <EditableTimerList
                         timers = {this.state.timers}
                         editTimer = {this.handleTimerForm}
                         deleteTimer = {this.handleDeleteTimer}
+                        startTimer = {this.handleStartTimer}
+                        stopTimer = {this.handleStopTimer}
+                        resetTimer = {this.handleResetTimer}
                      />
 
                     <ToggleableTimerForm

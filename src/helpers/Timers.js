@@ -6,7 +6,7 @@ const timers = [
         project: "Gym Time",
         id: uuidv4(),
         elapsed: 0,
-        runningSince: Date.now()
+        runningSince: null
     },
 
     {

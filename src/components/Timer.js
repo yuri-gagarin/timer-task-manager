@@ -1,19 +1,40 @@
 import React, {Component} from "react";
+import TimerActionButtons from "./TimerActionButtons";
 import {renderTimeString} from "../helpers/TimeHelper";
+
 
 
 class Timer extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.startTimer = this.startTimer.bind(this);
+        this.stopTimer = this.stopTimer.bind(this);
+        this.resetTimer = this.resetTimer.bind(this);
+
+    }
+
+    startTimer() {
+        this.props.startTimer(this.props.id);
+    }
+    stopTimer() {
+        this.props.stopTimer(this.props.id);
+    }
+    resetTimer() {
+        this.props.resetTimer(this.props.id);
+    }
     componentDidMount() {
         this.forceUpdateInterval = setInterval(() => {
-            this.forceUpdate()}, 1000);
+        this.forceUpdate()}, 500);
     }
+
     componentWillUnmount() {
         clearInterval(this.forceUpdateInterval);
     }
     render() {
+
         const elapsedTime = renderTimeString(this.props.elapsed, this.props.runningSince);
-        console.log(this.props.elapsed)
         return (
             <div className="ui centered card">
                 <div className="content">
@@ -35,9 +56,12 @@ class Timer extends Component {
                         </span>
                     </div>
                 </div>
-                <div className="ui bottom attached blue basic button">
-                    Start
-                </div>
+                <TimerActionButtons 
+                    timerRunning = {this.props.runningSince}
+                    startTimer = {this.startTimer}
+                    resetTimer = {this.resetTimer}
+                    stopTimer = {this.stopTimer}
+                />
             </div>
         );
     }
