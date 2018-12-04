@@ -10,7 +10,6 @@ class EditableTimer extends Component {
         this.formSubmit = this.formSubmit.bind(this);
         this.openEditForm = this.openEditForm.bind(this);
         this.closeEditForm = this.closeEditForm.bind(this);
-        this.deleteTimer = this.deleteTimer.bind(this);
 
         this.state = {
             editFormOpen: false
@@ -27,9 +26,7 @@ class EditableTimer extends Component {
     closeEditForm() {
         this.setState({editFormOpen: false});
     }
-    deleteTimer(timerID) {
-        console.log(timerID);
-    }
+   
 
     render() {
         if (this.state.editFormOpen) {

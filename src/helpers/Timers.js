@@ -5,7 +5,7 @@ const timers = [
         title: "Squat Exercises",
         project: "Gym Time",
         id: uuidv4(),
-        elapsed: 5456099,
+        elapsed: 0,
         runningSince: Date.now()
     },
 
@@ -13,8 +13,8 @@ const timers = [
         title: 'Bake a Cake',
         project: "Kitchen",
         id: uuidv4(),
-        elapsed: 1273998,
-        runningSince: null
+        elapsed: Date.now(),
+        runningSince: Date.now()
     }
 
 ];

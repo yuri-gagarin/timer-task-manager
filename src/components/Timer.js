@@ -3,8 +3,17 @@ import {renderTimeString} from "../helpers/TimeHelper";
 
 
 class Timer extends Component {
+
+    componentDidMount() {
+        this.forceUpdateInterval = setInterval(() => {
+            this.forceUpdate()}, 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.forceUpdateInterval);
+    }
     render() {
-        const elapsedTime = renderTimeString(this.props.elapsed);
+        const elapsedTime = renderTimeString(this.props.elapsed, this.props.runningSince);
+        console.log(this.props.elapsed)
         return (
             <div className="ui centered card">
                 <div className="content">

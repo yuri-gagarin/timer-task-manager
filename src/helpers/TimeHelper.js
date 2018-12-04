@@ -17,7 +17,7 @@ const newTimer = function(attrs={}) {
 const renderTimeString = function(elapsed, started) {
     let totalElapsed = elapsed;
     if (started) {
-        totalElapsed += Date.now() - totalElapsed;
+        totalElapsed += Date.now() - started;
     }
     return convertedTime(totalElapsed);
 }
