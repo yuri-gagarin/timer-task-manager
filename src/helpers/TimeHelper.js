@@ -23,8 +23,20 @@ const renderTimeString = function(elapsed, started) {
     return convertedTime(totalElapsed);
 }
 
-const renderCountdownString = function(remaining, initial){
-
+const renderCountdownString = function(elapsed, runningSince, remain){
+    let remainder = remain;
+    if (runningSince) {
+        let decrement = Date.now() - runningSince - elapsed;
+        remainder -= decrement;
+    }
+    if (remainder < 0) {
+        return(convertedTime(0));
+    }
+    else {
+        return convertedTime(remainder);
+    }
+ 
 }
 
-export {newTimer, renderTimeString}
+
+export {newTimer, renderTimeString, renderCountdownString}

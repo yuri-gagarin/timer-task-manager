@@ -21,10 +21,11 @@ const convertedTime = function(milliseconds) {
 }
 
 const convertToMilis = function(hours=0, minutes=0, seconds=0) {
-    let hoursToMilis = hours*60*60*1000;
-    let minutesToMilis = minutes*60*1000;
-    let secondsToMilis = seconds*1000;
-    return(hoursToMilis+minutesToMilis+secondsToMilis);
+    const hrMil = parseInt(hours) * 60 * 60 * 1000;
+    const minMil = parseInt(minutes) * 60 *  1000;
+    const secMil = parseInt(seconds) * 1000;
+
+    return (hrMil+minMil+secMil);
 }
 
 export {convertedTime, convertToMilis};

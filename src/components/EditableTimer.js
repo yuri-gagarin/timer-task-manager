@@ -50,6 +50,8 @@ class EditableTimer extends Component {
                     project={this.props.project}
                     elapsed={this.props.elapsed}
                     runningSince={this.props.runningSince}
+                    countdown={this.props.countdown}
+                    amount={this.props.amount}
                     openEditForm={this.openEditForm}
                     deleteTimer={this.props.deleteTimer}
                     startTimer={this.props.startTimer}

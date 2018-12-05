@@ -24,11 +24,7 @@ class CountdownTimerForm extends Component {
     }
 
     formSubmit() {
-        const hr = parseInt(this.state.hours);
-        const min = parseInt(this.state.minutes);
-        const sec = parseInt(this.state.seconds);
-        console.log(convertToMilis(hr,min,sec));
-        
+        console.log(convertToMilis(this.state.hours, this.state.minutes, this.state.seconds));
     }
 
     handleTitleChange(e) {

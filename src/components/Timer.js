@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import TimerActionButtons from "./TimerActionButtons";
-import {renderTimeString} from "../helpers/TimeHelper";
+import {renderTimeString, renderCountdownString} from "../helpers/TimeHelper";
 
 
 
@@ -33,39 +33,74 @@ class Timer extends Component {
         clearInterval(this.forceUpdateInterval);
     }
     render() {
-
-        const elapsedTime = renderTimeString(this.props.elapsed, this.props.runningSince);
-        return (
-            <div className="ui four wide column">
-            <div className="ui centered card">
-                <div className="content">
-                    <div className="header">
-                        {this.props.title}
-                    </div>
-                    <div className="meta">
-                        {this.props.project}
-                    </div>
-                    <div className="center aligned description">
-                        <h2>{elapsedTime}</h2>
-                    </div>
-                    <div className="extra content">
-                        <span className="right floated edit icon" onClick={this.props.openEditForm}>
-                            <i className="edit icon"/>
-                        </span>
-                        <span className="right floated trash icon" onClick={() => {this.props.deleteTimer(this.props.id)}}>
-                            <i className="trash icon"/>
-                        </span>
+        if (this.props.countdown == false) {
+            const elapsedTime = renderTimeString(this.props.elapsed, this.props.runningSince);
+            return (
+                <div className="ui four wide column">
+                    <div className="ui centered card">
+                        <div className="content">
+                            <div className="header">
+                                {this.props.title}
+                            </div>
+                            <div className="meta">
+                                {this.props.project}
+                            </div>
+                            <div className="center aligned description">
+                                <h2>{elapsedTime}</h2>
+                            </div>
+                            <div className="extra content">
+                                <span className="right floated edit icon" onClick={this.props.openEditForm}>
+                                    <i className="edit icon"/>
+                                </span>
+                                <span className="right floated trash icon" onClick={() => {this.props.deleteTimer(this.props.id)}}>
+                                    <i className="trash icon"/>
+                                </span>
+                            </div>
+                        </div>
+                        <TimerActionButtons 
+                            timerRunning = {this.props.runningSince}
+                            startTimer = {this.startTimer}
+                            resetTimer = {this.resetTimer}
+                            stopTimer = {this.stopTimer}
+                        />
                     </div>
                 </div>
-                <TimerActionButtons 
-                    timerRunning = {this.props.runningSince}
-                    startTimer = {this.startTimer}
-                    resetTimer = {this.resetTimer}
-                    stopTimer = {this.stopTimer}
-                />
-            </div>
-            </div>
-        );
+            );
+        }
+        else {
+            const countdownTime = renderCountdownString(this.props.elapsed, this.props.runningSince, this.props.amount);
+            return (
+                <div className="ui four wide column">
+                    <div className="ui centered card">
+                        <div className="content">
+                            <div className="header">
+                                {this.props.title}
+                            </div>
+                            <div className="meta">
+                                {this.props.project}
+                            </div>
+                            <div className="center aligned description">
+                                <h2>{countdownTime}</h2>
+                            </div>
+                            <div className="extra content">
+                                <span className="right floated edit icon" onClick={this.props.openEditForm}>
+                                    <i className="edit icon"/>
+                                </span>
+                                <span className="right floated trash icon" onClick={() => {this.props.deleteTimer(this.props.id)}}>
+                                    <i className="trash icon"/>
+                                </span>
+                            </div>
+                        </div>
+                        <TimerActionButtons 
+                            timerRunning = {this.props.runningSince}
+                            startTimer = {this.startTimer}
+                            resetTimer = {this.resetTimer}
+                            stopTimer = {this.stopTimer}
+                        />
+                    </div>
+                </div>
+            )
+        }
     }
 }
 

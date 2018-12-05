@@ -93,10 +93,16 @@ class TimersDashboard extends Component {
     handleResetTimer(timerID) {
         const updatedTimers = this.state.timers.map(timer => {
             if (timerID === timer.id) {
-                timer.elapsed = null;
-                timer.runningSince = null;
-                return timer;
-            }
+                if (timer.countdown) {
+                    timer.runningSince = null;
+                    return timer;
+                }
+                else {
+                    timer.elapsed = null;
+                    timer.runningSince = null;
+                    return timer;
+                    }
+                }
             else {
                 return timer;
             }
@@ -106,9 +112,16 @@ class TimersDashboard extends Component {
     handleStopTimer(timerID) {
         const updatedTimers = this.state.timers.map(timer => {
             if (timer.id === timerID) {
-                timer.elapsed = Date.now() - timer.runningSince;
-                timer.runningSince = null;
-                return timer;
+                if(timer.countdown) {
+                    timer.amount -=Date.now() - timer.runningSince;
+                    timer.runningSince = null;
+                    return timer;
+                }
+                else {
+                    timer.elapsed = Date.now() - timer.runningSince;
+                    timer.runningSince = null;
+                    return timer;
+                }
             }
             else {
                 return timer;

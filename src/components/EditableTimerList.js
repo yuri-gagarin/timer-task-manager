@@ -12,8 +12,10 @@ class EditableTimerList extends Component {
                 id = {timer.id}
                 title = {timer.title}
                 project = {timer.project}
-                elapsed = {timer.elapsed}
                 runningSince = {timer.runningSince}
+                elapsed = {timer.elapsed}
+                countdown = {timer.countdown}
+                amount = {timer.amount}
                 onFormSubmit = {this.props.editTimer}
                 deleteTimer = {this.props.deleteTimer}
                 startTimer = {this.props.startTimer}
