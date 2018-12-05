@@ -11,8 +11,12 @@ class TimersDashboard extends Component {
     constructor(props) {
         super(props);
         //timer CRUD
+        console.log(timers);
         this.handleTimerForm = this.handleTimerForm.bind(this);
         this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
+
+        //toolbarSortOption
+        this.displaySorted = this.displaySorted.bind(this);
 
         //stopwatch
         this.handleCountdownForm = this.handleCountdownForm.bind(this);
@@ -24,11 +28,45 @@ class TimersDashboard extends Component {
 
         this.state = {
             timers:[],
+            sortOption: "All"
         }
     }
 
     componentDidMount() {
         this.setState({timers: timers}, () => {
+        });
+    }
+    //sorting controls
+    displaySorted(option) {
+        let allTimers = timers;
+        let updatedTimers = [];
+        switch (option) {
+            case "All" :
+                //in future get timers from server
+                updatedTimers = timers.map(timer => {
+                    return timer;
+                });
+            break;
+            case "Timers":
+                updatedTimers = allTimers.filter(timer => {
+                    console.log(timer)
+                    return timer.countdown === false;
+                });
+            break;
+            case "Countdown Timers":
+                updatedTimers = allTimers.filter(timer => {
+                    return timer.countdown === true;
+                })
+            break;
+            case "Most Recent":
+            break ;
+            case "Oldest":
+            break;
+
+        }
+        this.setState({
+            sortOption: option,
+            timers: updatedTimers
         });
     }
 
@@ -150,7 +188,9 @@ class TimersDashboard extends Component {
     render() {
         return(
             <div className="container state-container">
-                <ToolBar />
+                <ToolBar activeItem = {this.state.sortOption}
+                         displaySorted = {this.displaySorted}
+                 />
                 <div className="container">
                     <EditableTimerList
                         timers = {this.state.timers}
