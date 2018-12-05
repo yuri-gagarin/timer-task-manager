@@ -30,6 +30,13 @@ class TimersDashboard extends Component {
         this.setState({timers: timers}, () => {
         });
     }
+
+    handleCountdownForm(obj) {
+        console.log(obj)
+        this.setState({
+            timers: this.state.timers.concat(obj)
+        });
+    }
     
     //timer edit controlls
     handleTimerForm(timer) {
@@ -66,9 +73,7 @@ class TimersDashboard extends Component {
         this.setState({timers: updatedTimers});
     }
 
-    handleCountdownForm(obj) {
-        console.log(obj)
-    }
+  
 
     //timer controlls
     handleStartTimer(timerID) {
@@ -152,7 +157,7 @@ class TimersDashboard extends Component {
                     </div>
                     <div className="column">
                         <ToggleableCountdownForm
-                            createCountdownTimer = {this.handleSubmitStopWatchForm}
+                            createCountdownTimer = {this.handleCountdownForm}
                         />
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {convertToMilis} from "../helpers/ConverterHelper";
+import {newTimer} from "../helpers/TimeHelper";
 
 
 class CountdownTimerForm extends Component {
@@ -24,7 +25,14 @@ class CountdownTimerForm extends Component {
     }
 
     formSubmit() {
-        console.log(convertToMilis(this.state.hours, this.state.minutes, this.state.seconds));
+        const milis = convertToMilis(this.state.hours, this.state.minutes, this.state.seconds)
+        const countdownTimer = newTimer({
+            title: this.state.title,
+            project: this.state.project,
+        })
+        countdownTimer.countdown = true;
+        countdownTimer.amount = milis;
+        this.props.formSubmit(countdownTimer);
     }
 
     handleTitleChange(e) {

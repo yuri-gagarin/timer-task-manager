@@ -30,7 +30,7 @@ const renderCountdownString = function(elapsed, runningSince, remain){
         remainder -= decrement;
     }
     if (remainder < 0) {
-        return(convertedTime(0));
+        return("Time is up!");
     }
     else {
         return convertedTime(remainder);
