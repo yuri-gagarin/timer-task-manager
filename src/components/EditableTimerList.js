@@ -23,7 +23,7 @@ class EditableTimerList extends Component {
             );
         })
         return (
-            <div id="timers">
+            <div className="timers">
                 {timers}
             </div>
         );

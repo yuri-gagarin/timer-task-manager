@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import EditableTimerList from "./EditableTimerList";
 import ToggleableTimerForm from "./ToggleableTimerForm";
-
+import ToggleableCountdownForm from "./ToggleableCountdownForm";
 import {newTimer} from "../helpers/TimeHelper";
 import {timers} from "../helpers/Timers";
 
@@ -12,6 +12,9 @@ class TimersDashboard extends Component {
         //timer CRUD
         this.handleTimerForm = this.handleTimerForm.bind(this);
         this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
+
+        //stopwatch
+        this.handleCountdownForm = this.handleCountdownForm.bind(this);
 
         //timer controls
         this.handleStartTimer = this.handleStartTimer.bind(this);
@@ -61,6 +64,10 @@ class TimersDashboard extends Component {
             return t.id !== timerID;
         });
         this.setState({timers: updatedTimers});
+    }
+
+    handleCountdownForm(obj) {
+        console.log(obj)
     }
 
     //timer controlls
@@ -113,8 +120,8 @@ class TimersDashboard extends Component {
     
     render() {
         return(
-            <div className="ui four column doubling stackable grid container">
-                <div className="column">
+            <div className="ui two column centered grid">
+                <div className="sixteen wide column">
                     <EditableTimerList
                         timers = {this.state.timers}
                         editTimer = {this.handleTimerForm}
@@ -123,10 +130,18 @@ class TimersDashboard extends Component {
                         stopTimer = {this.handleStopTimer}
                         resetTimer = {this.handleResetTimer}
                      />
-
-                    <ToggleableTimerForm
-                        createTimer = {this.handleTimerForm}
-                     />
+                </div>
+                <div className="four column centered row">
+                    <div className="column">
+                        <ToggleableTimerForm
+                            createTimer = {this.handleTimerForm}
+                        />
+                    </div>
+                    <div className="column">
+                        <ToggleableCountdownForm
+                            createCountdownTimer = {this.handleSubmitStopWatchForm}
+                        />
+                    </div>
                 </div>
             </div>
         );

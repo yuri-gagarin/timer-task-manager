@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import TimerForm from "./TimerForm";
+import CountdownTimerForm from "./CountdownTimerForm";
 
-class ToggleableTimerForm extends Component {
+class ToggleableCountdownForm extends Component {
     constructor(props) {
         super(props);
         this.formOpen = this.formOpen.bind(this);
@@ -22,13 +22,13 @@ class ToggleableTimerForm extends Component {
     }
 
     formSubmit(timer) {
-        this.props.createTimer(timer);
+        this.props.createCountdownTimer(timer);
         this.setState({isOpen: false});
     }
     render() {
         if (this.state.isOpen) {
             return (
-                <TimerForm
+                <CountdownTimerForm
                     formCancel = {this.formCancel}
                     formSubmit = {this.formSubmit}
                  />
@@ -38,7 +38,7 @@ class ToggleableTimerForm extends Component {
             return (
                     <button className="ui basic button icon" onClick={this.formOpen}>
                          <i className="plus icon" />
-                         Create a New Timer
+                         Create a Countdown Timer
                     </button>
             );
         }
@@ -46,4 +46,4 @@ class ToggleableTimerForm extends Component {
 
 }
 
-export default ToggleableTimerForm;
+export default ToggleableCountdownForm;

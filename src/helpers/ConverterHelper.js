@@ -20,4 +20,11 @@ const convertedTime = function(milliseconds) {
     return formattedTime.join(":");
 }
 
-export {convertedTime};
+const convertToMilis = function(hours=0, minutes=0, seconds=0) {
+    let hoursToMilis = hours*60*60*1000;
+    let minutesToMilis = minutes*60*1000;
+    let secondsToMilis = seconds*1000;
+    return(hoursToMilis+minutesToMilis+secondsToMilis);
+}
+
+export {convertedTime, convertToMilis};

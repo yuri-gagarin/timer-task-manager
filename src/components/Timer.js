@@ -36,6 +36,7 @@ class Timer extends Component {
 
         const elapsedTime = renderTimeString(this.props.elapsed, this.props.runningSince);
         return (
+            <div className="ui four wide column">
             <div className="ui centered card">
                 <div className="content">
                     <div className="header">
@@ -62,6 +63,7 @@ class Timer extends Component {
                     resetTimer = {this.resetTimer}
                     stopTimer = {this.stopTimer}
                 />
+            </div>
             </div>
         );
     }
