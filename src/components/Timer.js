@@ -36,7 +36,7 @@ class Timer extends Component {
         if (this.props.countdown == false) {
             const elapsedTime = renderTimeString(this.props.elapsed, this.props.runningSince);
             return (
-                <div className="ui four wide column">
+                <div className="column">
                     <div className="ui centered card">
                         <div className="content">
                             <div className="header">
@@ -70,7 +70,7 @@ class Timer extends Component {
         else {
             const countdownTime = renderCountdownString(this.props.elapsed, this.props.runningSince, this.props.amount);
             return (
-                <div className="ui four wide column">
+                <div className="column">
                     <div className="ui centered card">
                         <div className="content">
                             <div className="header">

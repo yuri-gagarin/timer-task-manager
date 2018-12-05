@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import EditableTimerList from "./EditableTimerList";
 import ToggleableTimerForm from "./ToggleableTimerForm";
 import ToggleableCountdownForm from "./ToggleableCountdownForm";
+import ToolBar from "./ToolBar";
 import {newTimer} from "../helpers/TimeHelper";
 import {timers} from "../helpers/Timers";
 
@@ -31,10 +32,19 @@ class TimersDashboard extends Component {
         });
     }
 
-    handleCountdownForm(obj) {
-        console.log(obj)
+    //create countdown timer
+    handleCountdownForm(data) {
+        const timer = newTimer({
+            title: data.title, 
+            project: data.project, 
+            elapsed: null, 
+            runningSince: null,
+            countdown: data.countdown,
+            amount: data.amount
+        });
+
         this.setState({
-            timers: this.state.timers.concat(obj)
+            timers: this.state.timers.concat(timer)
         });
     }
     
@@ -42,7 +52,6 @@ class TimersDashboard extends Component {
     handleTimerForm(timer) {
         
         if (timer.id) {
-            console.log(timer);
             const updatedTimers = this.state.timers.map(t => {
                 if (t.id === timer.id) {
                     t.title = timer.title;
@@ -61,9 +70,11 @@ class TimersDashboard extends Component {
                 title: timer.title,
                 project: timer.project,
                 elapsed: null,
-                runningSince: Date.now()
+                runningSince: null,
+                countdown: false,
+                amount: 0
             });
-            this.setState({timers: this.state.timers.concat(task)}, () => console.log(this.state.timers));
+            this.setState({timers: this.state.timers.concat(task)});
         }     
     }
     handleDeleteTimer(timerID) {
@@ -138,8 +149,9 @@ class TimersDashboard extends Component {
     
     render() {
         return(
-            <div className="ui two column centered grid">
-                <div className="sixteen wide column">
+            <div className="container state-container">
+                <ToolBar />
+                <div className="container">
                     <EditableTimerList
                         timers = {this.state.timers}
                         editTimer = {this.handleTimerForm}
@@ -149,7 +161,9 @@ class TimersDashboard extends Component {
                         resetTimer = {this.handleResetTimer}
                      />
                 </div>
-                <div className="four column centered row">
+                <div className="ui stackable four column grid">
+                    <div className="column">
+                    </div>
                     <div className="column">
                         <ToggleableTimerForm
                             createTimer = {this.handleTimerForm}

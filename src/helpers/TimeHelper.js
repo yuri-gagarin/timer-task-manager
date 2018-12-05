@@ -9,7 +9,9 @@ const newTimer = function(attrs={}) {
         project: attrs.project || "Project",
         id: uuidv4(),
         elapsed: 0,
-        runningSince: null
+        runningSince: attrs.runningSince,
+        countdown: attrs.countdown,
+        amount: attrs.amount
     };
 
     return timer;

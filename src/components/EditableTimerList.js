@@ -25,7 +25,7 @@ class EditableTimerList extends Component {
             );
         })
         return (
-            <div className="timers">
+            <div className="ui stackable four column grid">
                 {timers}
             </div>
         );
