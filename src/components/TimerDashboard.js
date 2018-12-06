@@ -3,7 +3,7 @@ import EditableTimerList from "./EditableTimerList";
 import ToggleableTimerForm from "./ToggleableTimerForm";
 import ToggleableCountdownForm from "./ToggleableCountdownForm";
 import ToolBar from "./ToolBar";
-import {newTimer} from "../helpers/TimeHelper";
+import {createTimer} from "../helpers/TimeHelper";
 import {timers} from "../helpers/Timers";
 
 
@@ -72,7 +72,7 @@ class TimersDashboard extends Component {
 
     //create countdown timer
     handleCountdownForm(data) {
-        const timer = newTimer({
+        const timer = createTimer({
             title: data.title, 
             project: data.project, 
             elapsed: null, 
@@ -92,9 +92,10 @@ class TimersDashboard extends Component {
         if (timer.id) {
             const updatedTimers = this.state.timers.map(t => {
                 if (t.id === timer.id) {
-                    t.title = timer.title;
-                    t.project = timer.project
-                    return t;
+                    const newTimer = Object.assign({}, t)
+                    newTimer.title = timer.title;
+                    newTimer.project = timer.project
+                    return newTimer;
                 }
                 else {
                     return t;
@@ -103,8 +104,8 @@ class TimersDashboard extends Component {
             this.setState({timers: updatedTimers});
         }
         else {
-            let task = 
-            newTimer({
+            let newTimer = 
+            createTimer({
                 title: timer.title,
                 project: timer.project,
                 elapsed: null,
@@ -112,7 +113,7 @@ class TimersDashboard extends Component {
                 countdown: false,
                 amount: 0
             });
-            this.setState({timers: this.state.timers.concat(task)});
+            this.setState({timers: this.state.timers.concat(newTimer)});
         }     
     }
     handleDeleteTimer(timerID) {
@@ -128,15 +129,15 @@ class TimersDashboard extends Component {
     handleStartTimer(timerID) {
         const updatedTimers = this.state.timers.map(timer => {
             if (timerID === timer.id) {
-                console.log(timer)
+                const newTimer = Object.assign({}, timer);
                 if (timer.elapsed != null) {
-                    timer.runningSince = Date.now() - timer.elapsed;
-                    timer.elapsed = 0;   
+                    newTimer.runningSince = Date.now() - timer.elapsed;
+                    newTimer.elapsed = 0;   
                 }
                 else {
-                    timer.runningSince = Date.now();
+                    newTimer.runningSince = Date.now();
                 }
-                return timer;
+                return newTimer;
             }
             else {
                 return timer;
@@ -147,14 +148,15 @@ class TimersDashboard extends Component {
     handleResetTimer(timerID) {
         const updatedTimers = this.state.timers.map(timer => {
             if (timerID === timer.id) {
+                const newTimer = Object.assign({}, timer);
                 if (timer.countdown) {
-                    timer.runningSince = null;
-                    return timer;
+                    newTimer.runningSince = null;
+                    return newTimer;
                 }
                 else {
-                    timer.elapsed = null;
-                    timer.runningSince = null;
-                    return timer;
+                    newTimer.elapsed = null;
+                    newTimer.runningSince = null;
+                    return newTimer;
                     }
                 }
             else {
@@ -166,15 +168,16 @@ class TimersDashboard extends Component {
     handleStopTimer(timerID) {
         const updatedTimers = this.state.timers.map(timer => {
             if (timer.id === timerID) {
+                const newTimer = Object.assign({}, timer);
                 if(timer.countdown) {
-                    timer.amount -=Date.now() - timer.runningSince;
-                    timer.runningSince = null;
-                    return timer;
+                    newTimer.amount -=Date.now() - timer.runningSince;
+                    newTimer.runningSince = null;
+                    return newTimer;
                 }
                 else {
-                    timer.elapsed = Date.now() - timer.runningSince;
-                    timer.runningSince = null;
-                    return timer;
+                    newTimer.elapsed = Date.now() - timer.runningSince;
+                    newTimer.runningSince = null;
+                    return newTimer;
                 }
             }
             else {

@@ -3,7 +3,7 @@ const uuidv4 = require("uuid/v4");
 
 
 
-const newTimer = function(attrs={}) {
+const createTimer = function(attrs={}) {
     const timer = {
         title: attrs.title || "Timer",
         project: attrs.project || "Project",
@@ -41,4 +41,4 @@ const renderCountdownString = function(elapsed, runningSince, remain){
 }
 
 
-export {newTimer, renderTimeString, renderCountdownString}
+export {createTimer, renderTimeString, renderCountdownString}

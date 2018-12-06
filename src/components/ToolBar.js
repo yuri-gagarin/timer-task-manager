@@ -5,18 +5,22 @@ class ToolBar extends Component {
   constructor(props) {
     super(props);
 
+    this.displaySearch = this.displaySearch.bind(this);
     this.handleSort = this.handleSort.bind(this);
   }
 
   handleSort(event, {name}) {
     this.props.displaySorted(name);
   }
+  displaySearch(event) {
+    console.log(event.target.value);
+  }
   render() {
     const  activeItem  = this.props.activeItem;
     console.log(activeItem);
 
     return (
-      <Menu secondary>
+      <Menu secondary stackable>
         <Menu.Item name='All' 
           active={activeItem === 'All'} 
           onClick={this.handleSort} />
@@ -38,7 +42,7 @@ class ToolBar extends Component {
         />
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Input icon='search' placeholder='Search...' />
+            <Input icon='search' placeholder='Search...' onChange={this.displaySearch} onClick={()=> {console.log("Hello")}} />
           </Menu.Item>
           <Menu.Item
             name='logout'
